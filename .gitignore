@@ -1,3 +1,6 @@
+mongo/
+pg/
+
 # dependencies
 node_modules/
 # next.js

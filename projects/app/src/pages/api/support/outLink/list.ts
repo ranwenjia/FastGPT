@@ -30,6 +30,7 @@ export async function handler(
   await authApp({
     req,
     authToken: true,
+    authApiKey: true,
     appId,
     per: ManagePermissionVal
   });

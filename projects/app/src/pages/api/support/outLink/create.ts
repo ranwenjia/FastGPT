@@ -26,6 +26,7 @@ async function handler(
   const { teamId, tmbId } = await authApp({
     req,
     authToken: true,
+    authApiKey: true,
     appId,
     per: ManagePermissionVal
   });

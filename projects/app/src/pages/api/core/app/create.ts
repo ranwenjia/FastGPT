@@ -31,15 +31,23 @@ export type CreateAppBody = {
 async function handler(req: ApiRequestProps<CreateAppBody>) {
   const { parentId, name, avatar, type, modules, edges, chatConfig } = req.body;
 
-  if (!name || !type || !Array.isArray(modules)) {
-    return Promise.reject(CommonErrEnum.inheritPermissionError);
-  }
+  // if (!name || !type || !Array.isArray(modules)) {
+  //   return Promise.reject(CommonErrEnum.inheritPermissionError);
+  // }
 
   // 凭证校验
   const [{ teamId, tmbId, userId }] = await Promise.all([
-    authUserPer({ req, authToken: true, per: WritePermissionVal }),
+    authUserPer({ req, authToken: true, authApiKey: true, per: WritePermissionVal }),
     ...(parentId
-      ? [authApp({ req, appId: parentId, per: WritePermissionVal, authToken: true })]
+      ? [
+          authApp({
+            req,
+            appId: parentId,
+            per: WritePermissionVal,
+            authToken: true,
+            authApiKey: true
+          })
+        ]
       : [])
   ]);
 
